@@ -30,6 +30,8 @@
 
 📜 Over **30,000+ lines** of insights into their structure and functionality.  
 
+🌐 **[Browse the Searchable Website](index.html)** - Interactive web interface to explore all prompts and tools
+
 ⭐ **Star to follow updates**
 
 [![Build Status](https://app.cloudback.it/badge/x1xhlol/system-prompts-and-models-of-ai-tools)](https://cloudback.it)
