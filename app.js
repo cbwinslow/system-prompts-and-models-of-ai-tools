@@ -7,6 +7,7 @@ class AIToolsExplorer {
         this.searchTerm = '';
         this.currentTool = null;
         this.currentFileIndex = 0;
+        this.totalFiles = 0;
         
         this.init();
     }
@@ -15,6 +16,9 @@ class AIToolsExplorer {
         // Load data
         this.tools = toolsData.tools;
         this.filteredTools = this.tools;
+        
+        // Calculate total files once
+        this.totalFiles = this.tools.reduce((sum, tool) => sum + tool.fileCount, 0);
         
         // Update stats
         this.updateStats();
@@ -74,9 +78,8 @@ class AIToolsExplorer {
     }
 
     updateStats() {
-        const totalFiles = this.tools.reduce((sum, tool) => sum + tool.fileCount, 0);
         document.getElementById('totalTools').textContent = this.tools.length;
-        document.getElementById('totalFiles').textContent = totalFiles;
+        document.getElementById('totalFiles').textContent = this.totalFiles;
         document.getElementById('displayedTools').textContent = this.filteredTools.length;
     }
 

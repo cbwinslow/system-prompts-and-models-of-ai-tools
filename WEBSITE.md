@@ -73,6 +73,7 @@ If you add new tools or files to the repository, regenerate `data.js`:
 python3 << 'EOF'
 import os
 import json
+import datetime
 from pathlib import Path
 
 def generate_index():
@@ -105,12 +106,12 @@ def generate_index():
                     'fileCount': len(files)
                 })
     
-    return {'tools': tools, 'totalTools': len(tools), 'generatedAt': '2025-11-02'}
+    return {'tools': tools, 'totalTools': len(tools), 'generatedAt': datetime.datetime.now().strftime('%Y-%m-%d')}
 
 index = generate_index()
 with open('data.js', 'w') as f:
     f.write('// Auto-generated data file\n')
-    f.write('// Generated on: 2025-11-02\n\n')
+    f.write(f'// Generated on: {index["generatedAt"]}\n\n')
     f.write('const toolsData = ')
     f.write(json.dumps(index, indent=2))
     f.write(';\n')
