@@ -249,8 +249,9 @@ class AIToolsExplorer {
         if (!pre || !this.searchTerm) return;
 
         const content = pre.textContent;
-        const regex = new RegExp(`(${this.escapeRegex(this.searchTerm)})`, 'gi');
-        const highlighted = content.replace(regex, '<span class="highlight">$1</span>');
+        const escapedContent = this.escapeHtml(content);
+        const regex = new RegExp(`(${this.escapeRegex(this.escapeHtml(this.searchTerm))})`, 'gi');
+        const highlighted = escapedContent.replace(regex, '<span class="highlight">$1</span>');
         pre.innerHTML = highlighted;
     }
 
