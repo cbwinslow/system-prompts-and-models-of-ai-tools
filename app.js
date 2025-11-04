@@ -249,10 +249,32 @@ class AIToolsExplorer {
         if (!pre || !this.searchTerm) return;
 
         const content = pre.textContent;
-        const escapedContent = this.escapeHtml(content);
-        const regex = new RegExp(`(${this.escapeRegex(this.escapeHtml(this.searchTerm))})`, 'gi');
-        const highlighted = escapedContent.replace(regex, '<span class="highlight">$1</span>');
-        pre.innerHTML = highlighted;
+        const searchTerm = this.searchTerm;
+        const regex = new RegExp(this.escapeRegex(searchTerm), 'gi');
+
+        // Remove all children
+        while (pre.firstChild) {
+            pre.removeChild(pre.firstChild);
+        }
+
+        let lastIndex = 0;
+        let match;
+        while ((match = regex.exec(content)) !== null) {
+            // Add text before match
+            if (match.index > lastIndex) {
+                pre.appendChild(document.createTextNode(content.slice(lastIndex, match.index)));
+            }
+            // Add highlighted match
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = match[0];
+            pre.appendChild(span);
+            lastIndex = regex.lastIndex;
+        }
+        // Add remaining text
+        if (lastIndex < content.length) {
+            pre.appendChild(document.createTextNode(content.slice(lastIndex)));
+        }
     }
 
     escapeRegex(str) {
